@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <Folder Include="NewFolder\" />
-    <Folder Include="wwwroot\assets\" />
+    <Folder Include="wwwroot\assets\img\BackGround\" />
   </ItemGroup>
 
   <ItemGroup>

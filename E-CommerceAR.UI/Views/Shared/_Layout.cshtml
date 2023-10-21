@@ -3,13 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - E_CommerceAR.UI</title>
+    <title>@ViewData["Title"] - E-Commerce</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/E_CommerceAR.UI.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link id="pagestyle" href="~/assets/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+
 </head>
-<body>
-    <header>
+<body class="bg-gray-200">
+    <main class="main-content  mt-0">
+
+
+                 @RenderBody()
+    </main>
+  @*   <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">E_CommerceAR.UI</a>
@@ -40,10 +48,14 @@
         <div class="container">
             &copy; 2023 - E_CommerceAR.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </footer>
+    </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+   @*  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script> *@
+    <script src="~/assets//js/core/popper.min.js"></script>
+    <script src="~/assets/js/core/bootstrap.min.js"></script>
+    <script src="~/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="~/assets/js/plugins/smooth-scrollbar.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

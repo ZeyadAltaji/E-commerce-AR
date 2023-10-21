@@ -10,13 +10,19 @@ namespace E_CommerceAR.UI.Controllers
 {
     public class AccountsController : BaseController
     {
-        public IActionResult Index()
+        public IActionResult Login()
         {
             if (HttpContext.Session.GetString("me") == null)
             {
                 return View();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Accounts");
+
+        }
+        public IActionResult Signup()
+        {
+            return View();
+
         }
         //[HttpPost]
         //[AllowAnonymous]
@@ -37,8 +43,6 @@ namespace E_CommerceAR.UI.Controllers
         //        return View();
         //    }
         //    return View();
-
-
         //}
         [HttpGet]
         public ActionResult Logout()
