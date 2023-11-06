@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Http;
 using System.Resources;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
+using E_CommerceAR.Domain;
+using Firebase.Auth;
+using E_CommerceAR.UI.Extensions;
 
 namespace E_CommerceAR.UI.Controllers
 {
@@ -19,31 +22,75 @@ namespace E_CommerceAR.UI.Controllers
             return RedirectToAction("Login", "Accounts");
 
         }
+        [HttpPost]
+        public async Task<IActionResult> Login(Login loginModel)
+        {
+            try
+            {
+                if (!IsValidEmail(loginModel.Email))
+                {
+                    ModelState.AddModelError("Email", "Invalid email address");
+                    return View(loginModel);
+                }
+
+                var fbAuthLink = await auth.SignInWithEmailAndPasswordAsync(loginModel.Email, loginModel.Password);
+                string token = fbAuthLink.FirebaseToken;
+                if (token != null)
+                {
+                    HttpContext.Session.SetString("_UserToken", token);
+
+                    return RedirectToAction("Index");
+                }
+
+            }
+            catch (FirebaseAuthException ex)
+            {
+                var firebaseEx = JsonConvert.DeserializeObject<FirebaseError>(ex.ResponseData);
+                ModelState.AddModelError(String.Empty, firebaseEx.error.message);
+                return View(loginModel);
+            }
+
+            return View();
+        }
+
         public IActionResult Signup()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Signup(Signup SignupModel)
+        {
+            try
+            {
+                if (!IsValidEmail(SignupModel.Email))
+                {
+                    ModelState.AddModelError("Email", "Invalid email address");
+                    return View(SignupModel);
+                }
+
+                await auth
+                    .CreateUserWithEmailAndPasswordAsync(SignupModel.Email, SignupModel.Password);
+                var fbAuthLink = await auth
+                                .SignInWithEmailAndPasswordAsync(SignupModel.Email, SignupModel.Password);
+                string token = fbAuthLink.FirebaseToken;
+                if (token != null)
+                {
+                    HttpContext.Session.SetString("_UserToken", token);
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (FirebaseAuthException ex)
+            {
+                var firebaseEx = JsonConvert
+                    .DeserializeObject<FirebaseError>(ex.ResponseData);
+                ModelState.AddModelError(String.Empty, firebaseEx.error.message);
+                return View(SignupModel);
+            }
+
+            return View();
 
         }
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public ActionResult Index(User model, string Captcha)
-        //{
-        //    ModelState.Clear();
-
-        //    if (model.UserID == null || model.UserPWD == null)
-        //    {
-        //        if (model.UserID == null)
-        //        {
-        //            ModelState.AddModelError(string.Empty, Resources.Resource.EmptyEmail);
-        //        }
-        //        if (model.UserPWD == null)
-        //        {
-        //            ModelState.AddModelError(string.Empty, Resources.Resource.EmptyPassword);
-        //        }
-        //        return View();
-        //    }
-        //    return View();
-        //}
         [HttpGet]
         public ActionResult Logout()
         {
@@ -82,7 +129,7 @@ namespace E_CommerceAR.UI.Controllers
         }
     
 
-    [HttpPost]
+        [HttpPost]
         private bool IsValidEmail(string email)
         {
             try

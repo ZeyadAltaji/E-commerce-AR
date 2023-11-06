@@ -2,10 +2,19 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
- namespace E_CommerceAR.UI.Controllers
+using E_CommerceAR.Domain;
+using E_CommerceAR.UI.Extensions;
+using Firebase.Auth;
+using User = E_CommerceAR.Domain.User;
+
+namespace E_CommerceAR.UI.Controllers
 {
     public class BaseController : Controller
     {
+        public readonly static string ApiKey = "AIzaSyBSjwMDM_Cf4STiMVKqCqDXziCvFis3fQU";
+        public readonly static string Bucket = "gs://finalprojectar-d85ea.appspot.com/";
+        public FirebaseAuthProvider auth;
+
         public string Title { get; set; }
         private string Lang;
         //private User user;
@@ -21,17 +30,18 @@ using Microsoft.AspNetCore.Http;
                 return Lang;
             }
         }
-        //public User me
-        //{
-        //    get
-        //    {
-        //        if ((User)Session["me"] != null)
-        //        {
-        //            user = (User)Session["me"];
-        //        }
-        //        return user;
-        //    }
-        //}
+        private User user;
+        public User me
+        {
+            get
+            {
+                if (HttpContext.Session.GetString("me") != null)
+                {
+                    HttpContext.Session.SetObject("me", user);
+                }
+                return user;
+            }
+        }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             string CuurentURL = filterContext.Controller.ToString();

@@ -1,5 +1,14 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    string lang = Context.Session.GetString("language") ?? "en"; ;
+    string language = lang == "ar-Pl" ? "ar" : "en";
+    string dir = lang == "ar-Pl" ? "rtl" : "ltr";
+
+}
+
+<!DOCTYPE html>
+<html lang="@language" dir="@dir">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,7 +20,7 @@
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 
 </head>
-<body class="bg-gray-200">
+<body class="bg-gray-200" dir="@dir">
     <main class="main-content  mt-0">
 
 
