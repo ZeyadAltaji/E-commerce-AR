@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace E_CommerceAR.Domain
 {
-    public partial class User
+    public partial class User: BaseEntity
     {
         [Required]
         public string UserName { get; set; } = string.Empty;
