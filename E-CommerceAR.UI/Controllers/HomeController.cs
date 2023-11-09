@@ -13,8 +13,8 @@ namespace E_CommerceAR.UI.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            auth = new FirebaseAuthProvider(
-                            new FirebaseConfig(ApiKey));
+            //auth = new FirebaseAuthProvider(
+            //                new FirebaseConfig(ApiKey));
         }
         public IActionResult Index()
         {

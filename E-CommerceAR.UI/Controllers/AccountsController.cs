@@ -13,6 +13,12 @@ namespace E_CommerceAR.UI.Controllers
 {
     public class AccountsController : BaseController
     {
+        FirebaseAuthProvider auth;
+        public AccountsController()
+        {
+            auth = new FirebaseAuthProvider(
+                        new FirebaseConfig(ApiKey));
+        }
         public IActionResult Login()
         {
             if (HttpContext.Session.GetString("me") == null)
@@ -39,9 +45,8 @@ namespace E_CommerceAR.UI.Controllers
                 {
                     HttpContext.Session.SetString("_UserToken", token);
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home", new { area = "AdminDashboard" });
                 }
-
             }
             catch (FirebaseAuthException ex)
             {

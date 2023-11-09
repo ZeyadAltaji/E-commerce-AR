@@ -13,7 +13,7 @@ namespace E_CommerceAR.UI.Controllers
     {
         public readonly static string ApiKey = "AIzaSyBSjwMDM_Cf4STiMVKqCqDXziCvFis3fQU";
         public readonly static string Bucket = "gs://finalprojectar-d85ea.appspot.com/";
-        public FirebaseAuthProvider auth;
+        
 
         public string Title { get; set; }
         private string Lang;
