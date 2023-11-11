@@ -6,6 +6,8 @@ using E_CommerceAR.Domain;
 using E_CommerceAR.UI.Extensions;
 using Firebase.Auth;
 using User = E_CommerceAR.Domain.User;
+using Firebase.Database;
+using Google.Cloud.Firestore;
 
 namespace E_CommerceAR.UI.Controllers
 {
@@ -13,9 +15,9 @@ namespace E_CommerceAR.UI.Controllers
     {
         public readonly static string ApiKey = "AIzaSyBSjwMDM_Cf4STiMVKqCqDXziCvFis3fQU";
         public readonly static string Bucket = "gs://finalprojectar-d85ea.appspot.com/";
-        
-
-        public string Title { get; set; }
+ 
+ 
+		public string Title { get; set; }
         private string Lang;
         //private User user;
 
@@ -103,5 +105,16 @@ namespace E_CommerceAR.UI.Controllers
                 }
             }
         }
-    }
+		public string Translate(string Ar, string En)
+		{
+			if (HttpContext.Session.GetString("language") == "ar-JO")
+			{
+				return Ar;
+			}
+			else
+			{
+				return En;
+			}
+		}
+	}
 }

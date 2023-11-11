@@ -10,11 +10,18 @@
   <ItemGroup>
     <Folder Include="Areas\AdminDashboard\Data\" />
     <Folder Include="Areas\AdminDashboard\Models\" />
+    <Folder Include="Areas\AdminDashboard\Views\Shared\" />
+    <Folder Include="Areas\Dealer\Controllers\" />
+    <Folder Include="Areas\Dealer\Data\" />
+    <Folder Include="Areas\Dealer\Models\" />
+    <Folder Include="Areas\Dealer\Views\" />
     <Folder Include="wwwroot\assets\img\BackGround\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Firebase.Auth" Version="1.0.0" />
+    <PackageReference Include="Firebase.Database" Version="1.0.0" />
+    <PackageReference Include="Google.Cloud.Firestore" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.4" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
     <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
